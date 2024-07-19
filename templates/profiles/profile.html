@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Profile</h5>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="first_name">First name</label>
+                    {{ profile_form.first_name }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="last_name">Last name</label>
+                    {{ profile_form.last_name }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="gender">Gender</label>
+                    {{ profile_form.gender }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="blood_group">Blood group</label>
+                    {{ profile_form.blood_group }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="date_of_birth">Date of birth</label>
+                    {{ profile_form.date_of_birth }}
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="address">Address</label>
+                    {{ profile_form.address }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="mobile_no">Mobile no</label>
+                    {{ profile_form.mobile_no }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    {{ profile_form.email }}
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Projects</h5>
+        <a href="{% url 'add_project' %}" class="btn btn-link">Add Project</a>
+        <ul class="list-group">
+            {% for project in projects %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ project.title }}: {{ project.description }}
+                    <div>
+                        <a href="{% url 'edit_project' project.pk %}" class="btn btn-sm btn-primary">Edit</a>
+                        <form action="{% url 'delete_project' project.pk %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Education</h5>
+        <a href="{% url 'add_education' %}" class="btn btn-link">Add Education</a>
+        <ul class="list-group">
+            {% for education in educations %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ education.institution }} - {{ education.degree }}
+                    <div>
+                        <a href="{% url 'edit_education' education.pk %}" class="btn btn-sm btn-primary">Edit</a>
+                        <form action="{% url 'delete_education' education.pk %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Certifications</h5>
+        <a href="{% url 'add_certification' %}" class="btn btn-link">Add Certification</a>
+        <ul class="list-group">
+            {% for certification in certifications %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ certification.name }} by {{ certification.issuer }}
+                    <div>
+                        <a href="{% url 'edit_certification' certification.pk %}" class="btn btn-sm btn-primary">Edit</a>
+                        <form action="{% url 'delete_certification' certification.pk %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Work Experience</h5>
+        <a href="{% url 'add_work_experience' %}" class="btn btn-link">Add Work Experience</a>
+        <ul class="list-group">
+            {% for work_experience in work_experiences %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ work_experience.job_title }} at {{ work_experience.company }}: {{ work_experience.description }}
+                    <div>
+                        <a href="{% url 'edit_work_experience' work_experience.pk %}" class="btn btn-sm btn-primary">Edit</a>
+                        <form action="{% url 'delete_work_experience' work_experience.pk %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
